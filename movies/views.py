@@ -78,6 +78,8 @@ class MovieDetails(APIView):
 
     def put(self, request, id):
         movie = self.get_object(id)
+        if type(movie) is Response:
+            return movie
         serializer = MovieSerializer(movie, data=request.data)
         if serializer.is_valid():
             serializer.save()
